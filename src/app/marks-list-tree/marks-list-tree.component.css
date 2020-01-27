@@ -1,0 +1,23 @@
+.type-icon {
+  color: #757575;
+  margin-right: 5px;
+}
+
+
+mat-tree{
+  width:80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 20px;
+}
+
+mat-tree-node{
+  width: 100%;
+}
+
+mat-nested-tree-node{
+  width: 80%;
+}
+

@@ -1,0 +1,39 @@
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Max Speed Column -->
+  <ng-container matColumnDef="Max Speed">
+    <th mat-header-cell *matHeaderCellDef> Max Speed </th>
+    <td mat-cell *matCellDef="let element"> {{element.maxSpeed}} </td>
+  </ng-container>
+
+  <!-- Motor Column -->
+  <ng-container matColumnDef="Motor">
+    <th mat-header-cell *matHeaderCellDef> Motor </th>
+    <td mat-cell *matCellDef="let element"> {{element.motor}} </td>
+  </ng-container>
+
+  <!-- CarInfo Column -->
+  <ng-container matColumnDef="Car Info">
+    <th mat-header-cell *matHeaderCellDef> Car Info </th>
+    <td mat-cell *matCellDef="let element"> {{element.carInfo}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<button mat-button>Add Model</button>
