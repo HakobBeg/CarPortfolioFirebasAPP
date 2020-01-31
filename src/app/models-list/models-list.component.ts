@@ -21,9 +21,6 @@ export class ModelsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.ms.getModelsByMarkId(this.modelsID).subscribe(models => this.dataSource.data = models);
-
-
   }
 }

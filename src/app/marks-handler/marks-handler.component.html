@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Add new mark</h1>
+
+<div mat-dialog-content>
+  <p>Type new mark name, below.</p>
+  <mat-form-field color="accent">
+    <input matInput [(ngModel)]="newMark" placeholder="New Mark">
+  </mat-form-field>
+  <div class="Buttons">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="newMark">Save</button>
+  </div>
+</div>
+
+

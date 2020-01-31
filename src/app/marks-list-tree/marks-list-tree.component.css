@@ -5,12 +5,14 @@
 
 
 mat-tree{
-  width:80%;
-  margin-left: 10%;
-  margin-right: 10%;
+  width:90%;
+  margin-left: 5%;
+  margin-right: 5%;
   border-style: solid;
-  border-width: 1px;
-  border-radius: 20px;
+  border-width: 2px;
+  border-color: #888888;
+  background-color: #888888;
+
 }
 
 mat-tree-node{
@@ -21,3 +23,16 @@ mat-nested-tree-node{
   width: 80%;
 }
 
+.AddMarkButton{
+  width: 90%;
+  margin-top: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #888888;
+}
+
+
+
+.mat-button-focus-overlay {
+  background-color:transparent;
+}

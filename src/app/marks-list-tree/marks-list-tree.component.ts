@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {of as observableOf} from 'rxjs';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MarkService} from '../../Services/mark.service';
+import {MatDialog} from '@angular/material';
+import {MarksHandlerComponent} from '../marks-handler/marks-handler.component';
 
 /** File node data with possible child nodes. */
 export interface FileNode {
@@ -29,6 +31,8 @@ export interface FlatTreeNode {
 })
 export class MarksListTreeComponent implements OnInit {
 
+  showSpinner = true;
+
   /** The TreeControl controls the expand/collapse state of tree nodes.  */
   treeControl: FlatTreeControl<FlatTreeNode>;
 
@@ -38,7 +42,7 @@ export class MarksListTreeComponent implements OnInit {
   /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
   dataSource: MatTreeFlatDataSource<FileNode, FlatTreeNode>;
 
-  constructor(private ms: MarkService) {
+  constructor(private ms: MarkService, private dialog: MatDialog) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
@@ -47,8 +51,27 @@ export class MarksListTreeComponent implements OnInit {
 
     this.treeControl = new FlatTreeControl(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  }
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(MarksHandlerComponent, {
+      width: '25%',
+      data: {result: ''}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.dataSource.data.push({
+        type: 'folder',
+        name: result,
+        children: []
+      });
+      console.log(this.dataSource.data);
+    });
 
   }
+
 
   /** Transform the data to something the tree can read. */
   transformer(node: FileNode, level: number) {
@@ -80,6 +103,7 @@ export class MarksListTreeComponent implements OnInit {
     return observableOf(node.children);
   }
 
+
   ngOnInit(): void {
 
 
@@ -93,6 +117,8 @@ export class MarksListTreeComponent implements OnInit {
           children: [{type: 'file', name: mark.id.toString()}]
         };
       });
+
+      this.showSpinner = !this.showSpinner;
     });
 
   }

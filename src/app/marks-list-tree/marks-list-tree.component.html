@@ -1,7 +1,7 @@
+<div *ngIf="!showSpinner">
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" [class.MarksList]>
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
 <app-models-list [modelsID]="node.name.toString()"></app-models-list>
-
   </mat-tree-node>
 
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
@@ -16,4 +16,10 @@
     </mat-icon>
     {{node.name}}
   </mat-tree-node>
+
+
 </mat-tree>
+<button mat-button class="AddMarkButton" (click)="openDialog()" >Add Mark</button>
+</div>
+
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="showSpinner"></mat-progress-bar>
