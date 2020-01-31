@@ -43,6 +43,7 @@ export class MarksListTreeComponent implements OnInit {
   dataSource: MatTreeFlatDataSource<FileNode, FlatTreeNode>;
 
   constructor(private ms: MarkService, private dialog: MatDialog) {
+    
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
