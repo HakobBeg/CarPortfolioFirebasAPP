@@ -48,7 +48,6 @@ export class MarksListTreeComponent implements OnInit {
       this.getLevel,
       this.isExpandable,
       this.getChildren);
-
     this.treeControl = new FlatTreeControl(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   }
