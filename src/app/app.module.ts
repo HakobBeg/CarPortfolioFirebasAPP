@@ -7,10 +7,11 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
+  MatCardModule,
   MatDialogModule, MatFormFieldModule,
   MatIconModule,
   MatProgressBarModule,
-  MatProgressSpinnerModule,
+  MatProgressSpinnerModule, MatSelectModule,
   MatToolbarModule,
   MatTreeModule
 } from '@angular/material';
@@ -24,13 +25,15 @@ import { MatSortModule } from '@angular/material/sort';
 import { MarksHandlerComponent } from './marks-handler/marks-handler.component';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import { ModelManagerComponent } from './model-manager/model-manager.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MarksListTreeComponent,
     ModelsListComponent,
-    MarksHandlerComponent
+    MarksHandlerComponent,
+    ModelManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,8 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
+    MatCardModule,
+    MatSelectModule,
 
   ],
   entryComponents: [

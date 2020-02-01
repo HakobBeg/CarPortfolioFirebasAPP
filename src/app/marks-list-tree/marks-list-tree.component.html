@@ -1,7 +1,7 @@
 <div *ngIf="!showSpinner">
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" [class.MarksList]>
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-<app-models-list [modelsID]="node.name.toString()"></app-models-list>
+<app-models-list [modelsID]="node.name"></app-models-list>
   </mat-tree-node>
 
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
@@ -15,6 +15,9 @@
       {{ node.type ==='file' ? 'description' : 'folder' }}
     </mat-icon>
     {{node.name}}
+    <button mat-button (click)="openDialog(node)"><mat-icon color="accent">edit</mat-icon></button>
+    <button mat-button (click)="onMarkDelete(node.id)"><mat-icon color="accent">delete</mat-icon></button>
+
   </mat-tree-node>
 
 

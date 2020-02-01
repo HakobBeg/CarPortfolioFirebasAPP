@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, Input} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
@@ -8,7 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class MarksHandlerComponent {
 
-  newMark = '';
+  markName = '';
 
   constructor(public dialogRef: MatDialogRef<MarksHandlerComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
   }

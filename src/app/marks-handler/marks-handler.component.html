@@ -1,13 +1,14 @@
-<h1 mat-dialog-title>Add new mark</h1>
+<h1 mat-dialog-title>{{data.action}}</h1>
 
 <div mat-dialog-content>
-  <p>Type new mark name, below.</p>
+  <p *ngIf="!data.editable">Type new mark name, below.</p>
+  <p *ngIf="data.editable">Edit mark name, below.</p>
   <mat-form-field color="accent">
-    <input matInput [(ngModel)]="newMark" placeholder="New Mark">
+    <input matInput [(ngModel)]="markName" [placeholder]="(data.editable)?data.editable.name:'New Mark'">
   </mat-form-field>
   <div class="Buttons">
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button [mat-dialog-close]="newMark">Save</button>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button [mat-dialog-close]="markName">Save</button>
   </div>
 </div>
 

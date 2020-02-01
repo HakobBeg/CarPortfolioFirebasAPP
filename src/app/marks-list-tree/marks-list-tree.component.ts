@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {of as observableOf} from 'rxjs';
 import {FlatTreeControl} from '@angular/cdk/tree';
@@ -8,7 +8,8 @@ import {MarksHandlerComponent} from '../marks-handler/marks-handler.component';
 
 /** File node data with possible child nodes. */
 export interface FileNode {
-  name: string;
+  id?: number;
+  name?: string;
   type: string;
   children?: FileNode[];
 }
@@ -18,6 +19,7 @@ export interface FileNode {
  * nodes include level index and whether they can be expanded or not.
  */
 export interface FlatTreeNode {
+  id: number;
   name: string;
   type: string;
   level: number;
@@ -27,7 +29,7 @@ export interface FlatTreeNode {
 @Component({
   selector: 'app-marks-list-tree',
   templateUrl: './marks-list-tree.component.html',
-  styleUrls: ['./marks-list-tree.component.css']
+  styleUrls: ['./marks-list-tree.component.css'],
 })
 export class MarksListTreeComponent implements OnInit {
 
@@ -43,35 +45,55 @@ export class MarksListTreeComponent implements OnInit {
   dataSource: MatTreeFlatDataSource<FileNode, FlatTreeNode>;
 
   constructor(private ms: MarkService, private dialog: MatDialog) {
-    
+
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
       this.isExpandable,
-      this.getChildren);
+      this.getChildren
+    );
     this.treeControl = new FlatTreeControl(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   }
 
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(MarksHandlerComponent, {
-      width: '25%',
-      data: {result: ''}
-    });
+  openDialog(node?: FileNode): void {
+    let dialogRef;
+    if (node === undefined) {
+      dialogRef = this.dialog.open(MarksHandlerComponent, {
+        width: '25%',
+        data: {action: 'Add new mark'}
+      });
+    } else {
+      dialogRef = this.dialog.open(MarksHandlerComponent, {
+        width: '25%',
+        data: {action: 'Edit Mark', editable: node}
+      });
+    }
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.dataSource.data.push({
+      if (!result) {
+        return;
+      }
+
+      const newMarkNode = {
+        id: (node) ? node.id : this.dataSource.data.slice(-1)[0].id + 1,
         type: 'folder',
         name: result,
-        children: []
-      });
-      console.log(this.dataSource.data);
+        children: [{type: 'file', id: this.dataSource.data.slice(-1)[0].id + 1}]
+      };
+      if (!node) {
+        this.ms.setMark({id: newMarkNode.id, name: newMarkNode.name, models: []});
+      } else {
+        this.ms.updateMarkName(node.id, result);
+      }
     });
-
   }
 
+
+  onMarkDelete(id: number) {
+    this.ms.deleteMark(id);
+  }
 
   /** Transform the data to something the tree can read. */
   transformer(node: FileNode, level: number) {
@@ -79,7 +101,8 @@ export class MarksListTreeComponent implements OnInit {
       name: node.name,
       type: node.type,
       level: level,
-      expandable: !!node.children
+      expandable: !!node.children,
+      id: node.id
     };
   }
 
@@ -110,15 +133,15 @@ export class MarksListTreeComponent implements OnInit {
     this.ms.getMarks().subscribe((marks) => {
 
       this.dataSource.data = marks.map((mark) => {
-
         return {
+          id: mark.id,
           type: 'folder',
           name: mark.name,
           children: [{type: 'file', name: mark.id.toString()}]
         };
       });
 
-      this.showSpinner = !this.showSpinner;
+      this.showSpinner = false;
     });
 
   }
