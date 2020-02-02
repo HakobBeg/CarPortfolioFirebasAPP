@@ -14,10 +14,14 @@ export class ModelsListComponent implements OnInit {
   @Input() modelsID: number;
   displayedColumns: string[] = ['id', 'name', 'Max Speed', 'Motor', 'Car Info'];
   dataSource: MatTableDataSource<Model>;
-
+  selectedModel: Model = {name: '', motor: -1, maxSpeed: -1, id: -1, markId: -1, carInfo: ''};
 
   constructor(private ms: MarkService) {
     this.dataSource = new MatTableDataSource<Model>();
+  }
+
+  deleteModel() {
+    this.ms.deleteModel(this.selectedModel.markId, this.selectedModel.id);
   }
 
   ngOnInit(): void {

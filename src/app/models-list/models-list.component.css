@@ -11,3 +11,19 @@ button{
   margin-left: 50%;
 }
 
+.Choose{
+width: 80%;
+margin-left: 60%;
+}
+
+
+.Choose button{
+  margin: 0;
+  width: 50%;
+}
+
+.Choose mat-form-field{
+  margin-left: 15%;
+}
+
+

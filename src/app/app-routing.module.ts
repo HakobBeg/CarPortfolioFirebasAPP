@@ -7,7 +7,8 @@ import {ModelManagerComponent} from './model-manager/model-manager.component';
 const routes: Routes = [
   {path: '', component: MarksListTreeComponent},
   {path: 'modelManage', component: ModelManagerComponent},
-  {path: 'modelManage/:idPath', component: ModelManagerComponent}
+  {path: 'modelManage/:markId/:modelId', component: ModelManagerComponent},
+  {path: 'modelManage/:markId', component: ModelManagerComponent},
 ];
 
 @NgModule({
