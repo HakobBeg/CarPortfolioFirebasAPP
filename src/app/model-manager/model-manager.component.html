@@ -1,0 +1,29 @@
+<mat-card>
+  <h1 mat-card-title>{{action}} Model</h1>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Model Name</mat-label>
+    <input matInput placeholder="Model Name" [(ngModel)]="model.name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="accent" >
+    <mat-label>Motor</mat-label>
+    <input matInput placeholder="Motor" [(ngModel)]="model.motor" >
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline" color="accent" >
+    <mat-label>Max Speed</mat-label>
+    <input matInput placeholder="Max Speed" color="accent" [(ngModel)]="model.maxSpeed">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Car Info...</mat-label>
+    <textarea matInput placeholder="Textarea"   [(ngModel)]="model.carInfo"></textarea>
+  </mat-form-field>
+
+
+  <div class="Buttons">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button (click)="onSave()">Save</button>
+  </div>
+</mat-card>

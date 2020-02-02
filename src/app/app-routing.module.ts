@@ -9,6 +9,7 @@ const routes: Routes = [
   {path: 'modelManage', component: ModelManagerComponent},
   {path: 'modelManage/:markId/:modelId', component: ModelManagerComponent},
   {path: 'modelManage/:markId', component: ModelManagerComponent},
+  {path: '**', component: MarksListTreeComponent},
 ];
 
 @NgModule({
